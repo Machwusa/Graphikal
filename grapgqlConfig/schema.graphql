@@ -1,0 +1,53 @@
+# This file was generated based on ".graphqlconfig". Do not edit manually.
+
+schema {
+    query: RootQueryType
+    mutation: Mutation
+}
+
+"Hobby description"
+type Hobby {
+    description: String
+    id: ID
+    title: String
+    user: User
+}
+
+type Mutation {
+    CreateHobby(description: String!, title: String!, userId: String!): Hobby
+    CreatePost(comment: String!, userId: String!): Post
+    CreateUser(age: Int!, name: String!, profession: String): User
+    RemoveHobby(id: String!): Hobby
+    RemovePost(id: String!): Post
+    RemoveUser(id: String!): User
+    UpdateHobby(description: String!, id: String!, title: String!): Hobby
+    UpdatePost(comment: String!, id: String!): Post
+    UpdateUser(age: Int, id: String!, name: String!, profession: String): User
+}
+
+"Post description"
+type Post {
+    comment: String
+    id: ID
+    user: User
+}
+
+"Description"
+type RootQueryType {
+    hobbies: [Hobby]
+    hobby(id: ID): Hobby
+    post(id: ID): Post
+    posts: [Post]
+    user(id: String): User
+    users: [User]
+}
+
+"Documentation for user"
+type User {
+    age: Int
+    hobbies: [Hobby]
+    id: String
+    name: String
+    posts: [Post]
+    profession: String
+}
