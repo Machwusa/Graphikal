@@ -22,6 +22,8 @@ import android.widget.TextView;
 
 import org.jetbrains.annotations.NotNull;
 
+import java.util.Objects;
+
 public class MainActivity extends AppCompatActivity {
 
     public static final String TAG = MainActivity.class.getSimpleName();
@@ -85,9 +87,18 @@ public class MainActivity extends AppCompatActivity {
                .enqueue(new ApolloCall.Callback<UsersQuery.Data>() {
                    @Override
                    public void onResponse(@NotNull Response<UsersQuery.Data> response) {
-                       String name = response.getData().users().get(0).name;
+                       final String name = Objects.requireNonNull(Objects.requireNonNull(response.getData()).users()).get(1).name;
 
-                       Log.d(TAG, "Data==>>>: "+ name);
+                       for (int i = 0; i < Objects.requireNonNull(response.getData().users).size(); i++){
+                           Log.d(TAG, "User"+i+": " + Objects.requireNonNull(response.getData().users()).get(i).name);
+                       }
+
+                       MainActivity.this.runOnUiThread(new Runnable() {
+                           @Override
+                           public void run() {
+                               textView.setText(name);
+                           }
+                       });
                    }
 
                    @Override
