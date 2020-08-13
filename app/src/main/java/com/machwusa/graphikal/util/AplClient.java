@@ -7,6 +7,7 @@ import okhttp3.OkHttpClient;
 public class AplClient {
 
     public static final String BASE_URL = "https://graphql-android-project.herokuapp.com/graphql";
+    public static final String TAG = AplClient.class.getSimpleName();
 
     private static ApolloClient mApolloClient;
 
