@@ -1,6 +1,7 @@
 package com.machwusa.graphikal.ui;
 
 import android.content.Context;
+import android.content.Intent;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -11,6 +12,7 @@ import androidx.annotation.NonNull;
 import androidx.cardview.widget.CardView;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.machwusa.graphikal.DetailsActivity;
 import com.machwusa.graphikal.R;
 import com.machwusa.graphikal.UsersQuery;
 import com.machwusa.graphikal.util.AplClient;
@@ -79,7 +81,7 @@ public class UserAdapter extends RecyclerView.Adapter<UserAdapter.UserViewHolder
             this.context = context;
         }
 
-        void setUsers(UsersQuery.User user){
+        void setUsers(final UsersQuery.User user){
             tvUser.setText(user.name());
             tvAge.setText(user.age().toString());
             tvProfession.setText(user.profession());
@@ -88,6 +90,13 @@ public class UserAdapter extends RecyclerView.Adapter<UserAdapter.UserViewHolder
             container.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View view) {
+                    Intent intent = new Intent(context, DetailsActivity.class);
+                    intent.putExtra("userId", userId);
+                    intent.putExtra("name", user.name());
+                    intent.putExtra("age", user.age());
+                    intent.putExtra("profession", user.profession());
+                    intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+                    context.startActivity(intent);
                     Log.d(AplClient.TAG, userId);
                 }
             });

@@ -117,6 +117,12 @@ public class MainActivity extends AppCompatActivity {
                     @Override
                     public void onFailure(@NotNull ApolloException e) {
 //                        progressBar.setVisibility(View.GONE);
+                        MainActivity.this.runOnUiThread(new Runnable() {
+                            @Override
+                            public void run() {
+                                progressBar.setVisibility(View.GONE);
+                            }
+                        });
                         Log.d(AplClient.TAG, e.getStackTrace().toString());
                     }
                 });
