@@ -1,12 +1,17 @@
 package com.machwusa.graphikal;
 
+import android.graphics.Color;
 import android.os.Bundle;
 import android.util.Log;
+import android.view.Gravity;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.LinearLayout;
 import android.widget.ProgressBar;
+import android.widget.RelativeLayout;
+import android.widget.TextView;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
@@ -121,10 +126,27 @@ public class MainActivity extends AppCompatActivity {
                             @Override
                             public void run() {
                                 progressBar.setVisibility(View.GONE);
+                                showMessage("Connection error!");
                             }
                         });
                         Log.d(AplClient.TAG, e.getStackTrace().toString());
                     }
                 });
+    }
+
+    public void showMessage(String message){
+
+        content.removeAllViews();
+        RelativeLayout.LayoutParams layoutParams = new RelativeLayout.LayoutParams(
+                RelativeLayout.LayoutParams.WRAP_CONTENT,
+                RelativeLayout.LayoutParams.WRAP_CONTENT);
+        layoutParams.addRule(RelativeLayout.CENTER_IN_PARENT);
+        TextView textView = new TextView(MainActivity.this);
+        textView.setText(message);
+        textView.setTextColor(Color.CYAN);
+        textView.setTextSize((float) 18.9);
+        textView.setLayoutParams(layoutParams);
+
+        content.addView(textView);
     }
 }
