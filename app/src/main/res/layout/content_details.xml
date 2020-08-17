@@ -69,25 +69,23 @@
 
         <Button
             android:id="@+id/btn_hobbies"
-            android:background="#082027"
-            android:foreground="?android:attr/selectableItemBackgroundBorderless"
+            style="@style/Widget.AppCompat.Button.Colored"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_weight="1"
-            android:textColor="#FFFFFF"
             android:layout_margin="4dp"
-            android:text="Hobbies" />
+            android:layout_weight="1"
+            android:text="Hobbies"
+            android:textColor="#FFFFFF" />
 
         <Button
             android:id="@+id/btn_posts"
-            android:background="#082027"
-            android:foreground="?android:attr/selectableItemBackgroundBorderless"
+            style="@style/Widget.AppCompat.Button.Colored"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_weight="1"
-            android:textColor="#FFFFFF"
             android:layout_margin="4dp"
-            android:text="Posts" />
+            android:layout_weight="1"
+            android:text="Posts"
+            android:textColor="#FFFFFF" />
     </LinearLayout>
 
     <LinearLayout

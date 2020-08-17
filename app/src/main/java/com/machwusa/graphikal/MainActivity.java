@@ -1,14 +1,13 @@
 package com.machwusa.graphikal;
 
+import android.content.Intent;
 import android.graphics.Color;
 import android.os.Bundle;
 import android.util.Log;
-import android.view.Gravity;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.LinearLayout;
 import android.widget.ProgressBar;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
@@ -22,11 +21,12 @@ import com.apollographql.apollo.ApolloCall;
 import com.apollographql.apollo.api.Response;
 import com.apollographql.apollo.exception.ApolloException;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
-import com.google.android.material.snackbar.Snackbar;
 import com.machwusa.graphikal.ui.UserAdapter;
 import com.machwusa.graphikal.util.AplClient;
 
 import org.jetbrains.annotations.NotNull;
+
+import java.util.Arrays;
 
 public class MainActivity extends AppCompatActivity {
 
@@ -62,8 +62,7 @@ public class MainActivity extends AppCompatActivity {
         fab.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Snackbar.make(view, "Replace with your own action", Snackbar.LENGTH_LONG)
-                        .setAction("Action", null).show();
+              startActivity(new Intent(getApplicationContext(), AddUserActivity.class));
             }
         });
     }
@@ -120,16 +119,16 @@ public class MainActivity extends AppCompatActivity {
                     }
 
                     @Override
-                    public void onFailure(@NotNull ApolloException e) {
-//                        progressBar.setVisibility(View.GONE);
+                    public void onFailure(@NotNull final ApolloException e) {
+
                         MainActivity.this.runOnUiThread(new Runnable() {
                             @Override
                             public void run() {
                                 progressBar.setVisibility(View.GONE);
-                                showMessage("Connection error!");
+                                showMessage(e.getMessage());
                             }
                         });
-                        Log.d(AplClient.TAG, e.getStackTrace().toString());
+                        Log.d(AplClient.TAG, Arrays.toString(e.getStackTrace()));
                     }
                 });
     }
@@ -143,7 +142,7 @@ public class MainActivity extends AppCompatActivity {
         layoutParams.addRule(RelativeLayout.CENTER_IN_PARENT);
         TextView textView = new TextView(MainActivity.this);
         textView.setText(message);
-        textView.setTextColor(Color.CYAN);
+        textView.setTextColor(Color.DKGRAY);
         textView.setTextSize((float) 18.9);
         textView.setLayoutParams(layoutParams);
 

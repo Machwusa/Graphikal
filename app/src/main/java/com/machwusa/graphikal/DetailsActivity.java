@@ -178,7 +178,7 @@ public class DetailsActivity extends AppCompatActivity {
         layoutParams.gravity = Gravity.CENTER;
         TextView textView = new TextView(DetailsActivity.this);
         textView.setText(message);
-        textView.setTextColor(Color.CYAN);
+        textView.setTextColor(Color.DKGRAY);
         textView.setTextSize((float) 18.9);
         textView.setLayoutParams(layoutParams);
 
