@@ -67,6 +67,7 @@ public class MainActivity extends AppCompatActivity {
         });
     }
 
+
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         // Inflate the menu; this adds items to the action bar if it is present.
@@ -82,7 +83,8 @@ public class MainActivity extends AppCompatActivity {
         int id = item.getItemId();
 
         //noinspection SimplifiableIfStatement
-        if (id == R.id.action_settings) {
+        if (id == R.id.action_reload) {
+            recreate();
             return true;
         }
 
@@ -105,7 +107,7 @@ public class MainActivity extends AppCompatActivity {
                            Log.d(TAG, "User"+i+": " + Objects.requireNonNull(response.getData().users()).get(i).name);
                        }*/
 
-                        progressBar.setVisibility(View.VISIBLE);
+//                        progressBar.setVisibility(View.VISIBLE);
                         MainActivity.this.runOnUiThread(new Runnable() {
                             @Override
                             public void run() {

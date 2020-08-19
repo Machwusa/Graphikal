@@ -161,14 +161,27 @@ public class AddUserActivity extends AppCompatActivity implements View.OnClickLi
                         @Override
                         public void onResponse(@NotNull Response<AddHobbyMutation.Data> response) {
 
-                            String title = Objects.requireNonNull(Objects.requireNonNull(response.getData()).CreateHobby).title;
+                            final String title = Objects.requireNonNull(Objects.requireNonNull(response.getData()).CreateHobby).title;
 
-                            Toast.makeText(AddUserActivity.this, title + " has been saved", Toast.LENGTH_LONG).show();
+                            AddUserActivity.this.runOnUiThread(new Runnable() {
+                                @Override
+                                public void run() {
+                                    Toast.makeText(AddUserActivity.this, title + " has been saved", Toast.LENGTH_LONG).show();
+                                }
+                            });
+
+
                         }
 
                         @Override
-                        public void onFailure(@NotNull ApolloException e) {
-                            Toast.makeText(AddUserActivity.this, e.getMessage(), Toast.LENGTH_LONG).show();
+                        public void onFailure(@NotNull final ApolloException e) {
+                            AddUserActivity.this.runOnUiThread(new Runnable() {
+                                @Override
+                                public void run() {
+                                    Toast.makeText(AddUserActivity.this, e.getMessage(), Toast.LENGTH_LONG).show();
+                                }
+                            });
+
                         }
                     });
         }else {

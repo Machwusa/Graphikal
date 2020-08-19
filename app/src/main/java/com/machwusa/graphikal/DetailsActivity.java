@@ -73,8 +73,8 @@ public class DetailsActivity extends AppCompatActivity {
             String profession = intent.getStringExtra("profession");
 
             tvName.setText(name);
-            tvAge.setText("Age: " + age);
-            tvProfession.setText("Profession: " + profession);
+            tvAge.setText(String.format("Age: %d", age));
+            tvProfession.setText(String.format("Profession: %s", profession));
 
 
             //Set up recycler

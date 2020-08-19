@@ -6,19 +6,24 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageButton;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.cardview.widget.CardView;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.machwusa.graphikal.DeleteActivity;
 import com.machwusa.graphikal.DetailsActivity;
 import com.machwusa.graphikal.R;
+import com.machwusa.graphikal.UpdateUserActivity;
 import com.machwusa.graphikal.UsersQuery;
 import com.machwusa.graphikal.util.AplClient;
 
 import java.util.Collections;
 import java.util.List;
+import java.util.Objects;
 
 public class UserAdapter extends RecyclerView.Adapter<UserAdapter.UserViewHolder> {
 
@@ -67,6 +72,7 @@ public class UserAdapter extends RecyclerView.Adapter<UserAdapter.UserViewHolder
         TextView tvAge;
         TextView tvProfession;
         CardView container;
+        ImageButton btnDelete;
         String userId;
         Context context;
 
@@ -77,15 +83,43 @@ public class UserAdapter extends RecyclerView.Adapter<UserAdapter.UserViewHolder
             tvAge = itemView.findViewById(R.id.tv_age);
             tvProfession = itemView.findViewById(R.id.tv_profession);
             container = itemView.findViewById(R.id.card);
+            btnDelete = itemView.findViewById(R.id.btn_delete);
 
             this.context = context;
         }
 
         void setUsers(final UsersQuery.User user){
             tvUser.setText(user.name());
-            tvAge.setText(user.age().toString());
-            tvProfession.setText(user.profession());
+            tvAge.setText(String.format("Age: %s", Objects.requireNonNull(user.age()).toString()));
+            tvProfession.setText(String.format("Profession: %s", user.profession()));
             userId = user.id();
+
+            btnDelete.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
+                    Intent intent = new Intent(context, DeleteActivity.class);
+                    intent.putExtra("userId", userId);
+                    intent.putExtra("name", user.name());
+                    intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+                    context.startActivity(intent);
+                }
+            });
+
+            container.setOnLongClickListener(new View.OnLongClickListener() {
+                @Override
+                public boolean onLongClick(View view) {
+                    Intent intent = new Intent(context, UpdateUserActivity.class);
+                    intent.putExtra("userId", userId);
+                    intent.putExtra("name", user.name());
+                    intent.putExtra("age", user.age());
+                    intent.putExtra("profession", user.profession());
+                    intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+                    context.startActivity(intent);
+                    Log.d(AplClient.TAG, userId);
+
+                    return false;
+                }
+            });
 
             container.setOnClickListener(new View.OnClickListener() {
                 @Override
